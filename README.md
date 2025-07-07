@@ -590,7 +590,7 @@
         <!-- 第一个CTA按钮 -->
         <div class="cta-section">
             <button class="cta-button whatsapp-btn" data-source="salary-section">
-                💬 立即咨询详情
+                💬 立即进一步了解工作
             </button>
         </div>
 
@@ -658,7 +658,7 @@
         <!-- 第二个CTA按钮 -->
         <div class="cta-section">
             <button class="cta-button whatsapp-btn" data-source="details-section">
-                💬 立即预约面试
+                💬 立即进一步了解工作详情
             </button>
         </div>
 
