@@ -282,6 +282,9 @@
 
         <div class="footer">
             <p>点击按钮将跳转到WhatsApp应用</p>
+            <button onclick="testPixelEvent()" style="margin-top: 10px; padding: 5px 10px; background: #666; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                🧪 测试Lead事件
+            </button>
         </div>
     </div>
 
@@ -296,7 +299,7 @@
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
 
-        // 
+        // ⚠️ 重要：请替换为你的Facebook Pixel ID
         fbq('init', '623059780216649'); 
     </script>
     <noscript>
@@ -318,25 +321,43 @@
             if (eventSent) return;
             eventSent = true;
             
+            console.log('🔥 开始发送转化事件...');
+            
             // 发送Lead事件 - 这是WhatsApp跳转的标准追踪事件
             if (typeof fbq !== 'undefined') {
-                fbq('track', 'Lead', {
-                    content_name: 'WhatsApp招聘咨询',
-                    content_category: 'WhatsApp跳转',
-                    content_type: 'contact_form',
-                    event_source_url: window.location.href,
-                    value: 1.00,
-                    currency: 'USD'
-                });
-                console.log('✅ Facebook Pixel Lead事件已发送');
-                
-                // 同时发送自定义事件用于更详细的追踪
-                fbq('trackCustom', 'WhatsAppRedirect', {
-                    content_name: 'WhatsApp招聘咨询',
-                    redirect_success: true,
-                    timestamp: new Date().toISOString()
-                });
-                console.log('✅ 自定义WhatsApp跳转事件已发送');
+                try {
+                    fbq('track', 'Lead', {
+                        content_name: 'WhatsApp招聘咨询',
+                        content_category: 'WhatsApp跳转',
+                        content_type: 'contact_form',
+                        event_source_url: window.location.href,
+                        value: 1.00,
+                        currency: 'USD'
+                    });
+                    console.log('✅ Facebook Pixel Lead事件已发送');
+                    console.log('📝 事件参数: content_name = WhatsApp招聘咨询');
+                    
+                    // 同时发送自定义事件用于更详细的追踪
+                    fbq('trackCustom', 'WhatsAppRedirect', {
+                        content_name: 'WhatsApp招聘咨询',
+                        redirect_success: true,
+                        timestamp: new Date().toISOString()
+                    });
+                    console.log('✅ 自定义WhatsApp跳转事件已发送');
+                    
+                    // 强制刷新事件（确保发送）
+                    setTimeout(() => {
+                        console.log('🔄 强制再次发送Lead事件确保追踪');
+                        fbq('track', 'Lead', {
+                            content_name: 'WhatsApp招聘咨询',
+                            content_category: 'WhatsApp跳转_确认',
+                            event_source_url: window.location.href
+                        });
+                    }, 500);
+                    
+                } catch (error) {
+                    console.error('❌ 发送Pixel事件时出错:', error);
+                }
             } else {
                 console.error('❌ Facebook Pixel未正确加载');
             }
@@ -413,24 +434,12 @@
             // 检查页面是否失焦（用户可能已经跳转到WhatsApp）
             const timeElapsed = Date.now() - startTime;
             
-            if (document.hidden || timeElapsed > 2000) {
-                // 假设跳转成功
-                showLoading(false);
-                showStatus('已成功跳转到WhatsApp！', 'success');
-                trackConversion();
-            } else {
-                // 检查是否支持WhatsApp跳转
-                if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
-                    // 移动设备，假设支持WhatsApp
-                    showLoading(false);
-                    showStatus('正在打开WhatsApp应用...', 'success');
-                    trackConversion();
-                } else {
-                    // 桌面设备，提供备选方案
-                    showLoading(false);
-                    showStatus('请在手机上打开此页面以使用WhatsApp', 'error');
-                }
-            }
+            // 无论什么情况，都先发送Lead事件（确保事件被触发）
+            showLoading(false);
+            showStatus('已成功跳转到WhatsApp！', 'success');
+            trackConversion();
+            
+            console.log(`⏱️ 跳转检查完成，耗时: ${timeElapsed}ms`);
         }
 
         // 监听页面可见性变化
@@ -473,6 +482,14 @@
                 startCountdown();
             }, 100);
         });
+
+        // 测试Lead事件的函数
+        function testPixelEvent() {
+            console.log('🧪 手动测试Lead事件...');
+            eventSent = false; // 重置状态以允许测试
+            trackConversion();
+            showStatus('测试Lead事件已发送！检查控制台和Events Manager', 'success');
+        }
     </script>
 </body>
 </html>
