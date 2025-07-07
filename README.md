@@ -244,7 +244,7 @@
 <body>
     <div class="container">
         <div class="logo">📱</div>
-        <h1>正在为你转接招聘顾问</h1>
+        <h1>WhatsApp招聘咨询</h1>
         <p class="subtitle">立即联系我们的招聘顾问，获取最新职位信息和专业建议</p>
         
         <div class="features">
