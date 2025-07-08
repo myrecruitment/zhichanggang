@@ -18,6 +18,9 @@
             min-height: 100vh;
             padding: 20px;
             line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
@@ -31,6 +34,7 @@
             margin: 0 auto;
             position: relative;
             overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .container::before {
@@ -45,6 +49,7 @@
 
         .header {
             margin-bottom: 40px;
+            animation: slideDown 0.6s ease-out;
         }
 
         .company-info {
@@ -61,6 +66,7 @@
             letter-spacing: 0.5px;
             display: inline-block;
             margin-bottom: 12px;
+            animation: popIn 0.5s ease-out;
         }
 
         .company-name {
@@ -104,6 +110,7 @@
             grid-template-rows: repeat(2, 1fr);
             gap: 15px;
             margin-bottom: 35px;
+            animation: fadeIn 0.8s 0.2s both;
         }
 
         .highlight-item {
@@ -147,6 +154,13 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
         }
 
         .salary-highlight::before {
@@ -179,6 +193,7 @@
 
         .cta-section {
             margin-bottom: 25px;
+            animation: fadeIn 0.8s 0.4s both;
         }
 
         .cta-button {
@@ -240,6 +255,7 @@
             border-left: 4px solid #e53e3e;
             position: relative;
             overflow: hidden;
+            animation: slideUp 0.5s 0.6s both;
         }
 
         .urgency-note::before {
@@ -285,6 +301,7 @@
             border-radius: 8px;
             border: 1px solid #f6e05e;
             display: none;
+            animation: fadeIn 0.5s;
         }
 
         .fallback-link {
@@ -307,6 +324,7 @@
             margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #e2e8f0;
+            animation: fadeIn 0.8s 0.8s both;
         }
 
         .trust-indicators {
@@ -315,6 +333,7 @@
             gap: 15px;
             margin: 20px 0;
             flex-wrap: wrap;
+            animation: fadeIn 0.8s 0.7s both;
         }
 
         .trust-item {
@@ -327,26 +346,33 @@
             padding: 6px 12px;
             border-radius: 15px;
             border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
 
-        .whatsapp-info {
-            background: #f0fff4;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
-            border: 1px dashed #48bb78;
-            font-size: 14px;
-            text-align: center;
+        .trust-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        .whatsapp-info a {
-            color: #38a169;
-            font-weight: bold;
-            text-decoration: none;
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .whatsapp-info a:hover {
-            text-decoration: underline;
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            70% { transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 480px) {
@@ -388,6 +414,11 @@
             .trust-item {
                 font-size: 11px;
                 padding: 4px 8px;
+            }
+            
+            .cta-button {
+                padding: 16px 30px;
+                font-size: 16px;
             }
         }
     </style>
@@ -473,11 +504,6 @@
             <a href="#" class="fallback-link" id="whatsappFallbackLink" target="_blank"></a>
         </div>
 
-        <div class="whatsapp-info">
-            <p>WhatsApp咨询: <a href="https://wa.link/zhichanggang" id="direct-whatsapp-link" target="_blank">点击直接打开WhatsApp</a></p>
-            <p>或添加号码: <strong>+60148508461</strong></p>
-        </div>
-
         <div class="footer">
             <p>点击按钮将通过WhatsApp与我们的专业招聘顾问联系</p>
             <p style="margin-top: 8px; font-size: 12px;">我们承诺：100%免费咨询，不收取任何费用</p>
@@ -508,6 +534,7 @@
         // 配置 - 使用完整的WhatsApp链接
         const WHATSAPP_LINK = 'https://wa.link/zhichanggang';
         const PHONE_NUMBER = '+60148508461';
+        const WHATSAPP_PROTOCOL_LINK = `whatsapp://send?phone=${PHONE_NUMBER}`;
         
         // 唯一追踪函数 - 只追踪咨询点击
         function trackConsultationClick(buttonSource) {
@@ -579,22 +606,35 @@
             // 显示加载状态
             showStatus('正在连接招聘顾问...', 'success');
             
+            // 改进的设备检测
+            const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            
             setTimeout(() => {
                 try {
-                    // 改进的设备检测
-                    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                    
                     // 移动设备使用WhatsApp协议链接
                     if (isMobile) {
-                        // 创建隐藏链接并点击
-                        const hiddenLink = document.createElement('a');
-                        hiddenLink.href = `whatsapp://send?phone=${PHONE_NUMBER}`;
-                        hiddenLink.style.display = 'none';
-                        document.body.appendChild(hiddenLink);
-                        hiddenLink.click();
-                        document.body.removeChild(hiddenLink);
+                        console.log('📱 移动设备 - 尝试使用协议链接');
+                        
+                        // 创建隐藏iframe来尝试协议链接
+                        const iframe = document.createElement('iframe');
+                        iframe.style.display = 'none';
+                        iframe.src = WHATSAPP_PROTOCOL_LINK;
+                        document.body.appendChild(iframe);
+                        
+                        // 设置超时回退
+                        setTimeout(() => {
+                            if (document.hasFocus()) {
+                                console.log('🔄 协议链接未生效，回退到网页版');
+                                window.open(WHATSAPP_LINK, '_blank');
+                            }
+                        }, 500);
+                        
+                        // 移除iframe
+                        setTimeout(() => document.body.removeChild(iframe), 2000);
                     } else {
                         // 桌面设备使用网页版链接
+                        console.log('💻 桌面设备 - 打开网页版');
                         window.open(WHATSAPP_LINK, '_blank');
                     }
                     
@@ -605,7 +645,7 @@
                     }, 3000);
                     
                 } catch (error) {
-                    console.log('跳转失败:', error);
+                    console.log('❌ 跳转失败:', error);
                     showFallbackOption();
                     
                     // 恢复按钮状态
@@ -623,8 +663,9 @@
                 button.addEventListener('click', contactWhatsApp);
             });
             
-            // 设置直接WhatsApp链接
-            document.getElementById('direct-whatsapp-link').href = WHATSAPP_LINK;
+            // 设置备用链接
+            document.getElementById('whatsappFallbackLink').href = WHATSAPP_LINK;
+            document.getElementById('whatsappFallbackLink').textContent = WHATSAPP_LINK;
             
             setTimeout(() => {
                 if (typeof fbq !== 'undefined') {
