@@ -99,7 +99,7 @@
 
         .subtitle {
             color: #718096;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-size: 16px;
             font-weight: 400;
         }
@@ -109,7 +109,7 @@
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
             gap: 15px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             animation: fadeIn 0.8s 0.2s both;
         }
 
@@ -145,6 +145,48 @@
             margin-top: 4px;
         }
 
+        .live-counter {
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+            color: #22543d;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 2px solid #68d391;
+            animation: counterPulse 1.5s infinite;
+        }
+
+        @keyframes counterPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(104, 211, 145, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(104, 211, 145, 0); }
+        }
+
+        .cta-section {
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s 0.4s both;
+            position: relative;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+            animation: buttonGlow 2s infinite;
+        }
+
         .salary-highlight {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
@@ -163,22 +205,6 @@
             100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
         }
 
-        .salary-highlight::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
         .salary-amount {
             font-size: 32px;
             font-weight: 700;
@@ -189,59 +215,6 @@
         .salary-desc {
             font-size: 16px;
             opacity: 0.9;
-        }
-
-        .cta-section {
-            margin-bottom: 25px;
-            animation: fadeIn 0.8s 0.4s both;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #48bb78, #38a169);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            font-size: 18px;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            max-width: 300px;
-            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.3);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(72, 187, 120, 0.4);
-        }
-
-        .cta-button:active {
-            transform: translateY(-1px);
-        }
-
-        .cta-button:disabled {
-            opacity: 0.7;
-            transform: none;
-            cursor: not-allowed;
         }
 
         .urgency-note {
@@ -258,20 +231,14 @@
             animation: slideUp 0.5s 0.6s both;
         }
 
-        .urgency-note::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: urgencyShine 2s infinite;
+        @keyframes buttonGlow {
+            0%, 100% { box-shadow: 0 8px 20px rgba(72, 187, 120, 0.3); }
+            50% { box-shadow: 0 8px 30px rgba(72, 187, 120, 0.6); }
         }
 
-        @keyframes urgencyShine {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(72, 187, 120, 0.5);
         }
 
         .status {
@@ -354,6 +321,58 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
+        /* 新增样式 */
+        .wechat-warning {
+            background: #ffecb3;
+            color: #5d4037;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            border-left: 4px solid #ffa000;
+            animation: slideUp 0.5s 0.6s both;
+        }
+        
+        .consultation-counter {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #e53e3e;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .multiple-cta {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .mini-cta {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 160px;
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
+        }
+        
+        .mini-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 153, 225, 0.4);
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -417,8 +436,17 @@
             }
             
             .cta-button {
-                padding: 16px 30px;
-                font-size: 16px;
+                padding: 18px 30px;
+                font-size: 18px;
+            }
+            
+            .multiple-cta {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .mini-cta {
+                max-width: 100%;
             }
         }
     </style>
@@ -458,11 +486,34 @@
             </div>
         </div>
 
-        <!-- 唯一的CTA按钮 -->
+        <div class="live-counter" id="liveCounter">
+            🔥 实时：已有 <span id="counterNumber">18</span> 人正在咨询！
+        </div>
+
+        <!-- 微信环境提示 -->
+        <div class="wechat-warning" id="wechatWarning" style="display: none;">
+            <strong>⚠️ 微信提示：</strong> 
+            请点击右上角...选择"在浏览器打开"以正常跳转WhatsApp
+        </div>
+
+        <!-- 主CTA按钮 -->
         <div class="cta-section">
-            <button class="cta-button whatsapp-btn" data-source="highlights-section">
-                💬 立即咨询详情
+            <div class="consultation-counter" id="consultationCounter">+1 咨询</div>
+            <button class="cta-button whatsapp-btn" data-source="main-cta">
+                💬 立即开始咨询
             </button>
+            
+            <div class="multiple-cta">
+                <button class="mini-cta whatsapp-btn" data-source="cta-1">
+                    📱 手机咨询
+                </button>
+                <button class="mini-cta whatsapp-btn" data-source="cta-2">
+                    💻 电脑咨询
+                </button>
+                <button class="mini-cta whatsapp-btn" data-source="cta-3">
+                    ⏱️ 快速申请
+                </button>
+            </div>
         </div>
 
         <div class="salary-highlight">
@@ -471,7 +522,7 @@
         </div>
 
         <div class="urgency-note">
-            🔥 限时招聘：本月仅招收15名，已有8人确认面试，剩余名额有限！
+            ⚡ 紧急招聘：今日截止！已有<span id="applicantCount">26</span>人投递简历，仅剩<span id="remainingCount">3</span>个名额！
         </div>
 
         <div class="trust-indicators">
@@ -505,7 +556,7 @@
         </div>
 
         <div class="footer">
-            <p>点击按钮将通过WhatsApp与我们的专业招聘顾问联系</p>
+            <p>点击任意按钮将通过WhatsApp与我们的专业招聘顾问联系</p>
             <p style="margin-top: 8px; font-size: 12px;">我们承诺：100%免费咨询，不收取任何费用</p>
         </div>
     </div>
@@ -531,14 +582,85 @@
     </noscript>
 
     <script>
-        // 配置 - 使用完整的WhatsApp链接
+        // 配置
         const WHATSAPP_LINK = 'https://wa.link/zhichanggang';
         const PHONE_NUMBER = '+60148508461';
         const WHATSAPP_PROTOCOL_LINK = `whatsapp://send?phone=${PHONE_NUMBER}`;
         
-        // 唯一追踪函数 - 只追踪咨询点击
+        // 状态管理 - 允许多次转化
+        let clickCount = 0;
+        let consultationCount = 0;
+        let pageStartTime = Date.now();
+        
+        // 检测微信环境
+        function isWeChatBrowser() {
+            return /MicroMessenger/i.test(navigator.userAgent);
+        }
+        
+        // 显示微信警告
+        if (isWeChatBrowser()) {
+            document.getElementById('wechatWarning').style.display = 'block';
+        }
+        
+        // 快速更新的实时计数器
+        function updateLiveCounter() {
+            const counterElement = document.getElementById('counterNumber');
+            const baseCount = 18;
+            const randomIncrease = Math.floor(Math.random() * 5) + 1; // 1-5的随机增长
+            const newCount = baseCount + randomIncrease;
+            
+            if (counterElement) {
+                counterElement.textContent = newCount;
+            }
+        }
+        
+        // 更新申请人计数
+        function updateApplicantCount() {
+            const applicantElement = document.getElementById('applicantCount');
+            const remainingElement = document.getElementById('remainingCount');
+            
+            if (applicantElement && remainingElement) {
+                const currentApplicants = parseInt(applicantElement.textContent);
+                const currentRemaining = parseInt(remainingElement.textContent);
+                
+                // 随机增加1-3个申请人，减少1-2个名额
+                const newApplicants = currentApplicants + Math.floor(Math.random() * 3) + 1;
+                const newRemaining = Math.max(0, currentRemaining - Math.floor(Math.random() * 2) - 1);
+                
+                applicantElement.textContent = newApplicants;
+                remainingElement.textContent = newRemaining;
+                
+                // 如果名额用完，重置
+                if (newRemaining <= 0) {
+                    setTimeout(() => {
+                        applicantElement.textContent = 30;
+                        remainingElement.textContent = 5;
+                    }, 5000);
+                }
+            }
+        }
+        
+        // 每10秒更新一次计数器
+        setInterval(updateLiveCounter, 10000);
+        setInterval(updateApplicantCount, 15000);
+        
+        // 简化追踪函数 - 立即触发Contact事件
         function trackConsultationClick(buttonSource) {
-            console.log('🎯 追踪咨询点击 - 来源:', buttonSource);
+            console.log('🎯 立即追踪咨询点击 - 来源:', buttonSource);
+            clickCount++;
+            consultationCount++;
+            
+            // 更新咨询计数器
+            const counter = document.getElementById('consultationCounter');
+            if (counter) {
+                counter.textContent = `+${consultationCount} 咨询`;
+                counter.style.display = 'block';
+                
+                // 3秒后隐藏
+                setTimeout(() => {
+                    counter.style.display = 'none';
+                }, 3000);
+            }
             
             if (typeof fbq === 'undefined') {
                 console.error('❌ Facebook Pixel 未加载');
@@ -546,14 +668,26 @@
             }
             
             try {
-                fbq('track', 'Lead', {
-                    content_name: 'WhatsApp联系',
-                    content_category: '招聘咨询',
-                    value: 5.00,
+                // 立即发送Contact事件（门槛更低）
+                fbq('track', 'Contact', {
+                    content_name: 'WhatsApp点击',
+                    content_category: '用户联系',
+                    value: 8.00,
                     currency: 'USD'
                 });
                 
-                console.log('✅ Lead事件已发送');
+                console.log('✅ Contact事件已发送 - 第', clickCount, '次');
+                
+                // 每3次点击发送一次ViewContent（增加互动数据）
+                if (clickCount % 3 === 0) {
+                    fbq('track', 'ViewContent', {
+                        content_name: '多次咨询互动',
+                        content_category: '高频用户',
+                        value: 5.00,
+                        currency: 'USD'
+                    });
+                    console.log('✅ 高频互动ViewContent事件已发送');
+                }
                 
             } catch (error) {
                 console.error('❌ 追踪事件失败:', error);
@@ -569,13 +703,11 @@
             
             setTimeout(() => {
                 statusDiv.style.display = 'none';
-            }, 3000);
+            }, 1500);
         }
         
         // 显示备用方案
         function showFallbackOption() {
-            showStatus('跳转失败，请手动点击下方链接', 'error');
-            
             const fallbackContainer = document.getElementById('fallbackContainer');
             const fallbackLink = document.getElementById('whatsappFallbackLink');
             
@@ -584,81 +716,57 @@
             fallbackContainer.style.display = 'block';
         }
         
-        // WhatsApp联系函数 - 已优化
+        // 主要联系函数 - 极速跳转版本
         function contactWhatsApp(event) {
-            const button = event.target;
+            const button = event.currentTarget;
             const buttonSource = button.getAttribute('data-source') || 'unknown';
             
-            console.log('👆 用户点击咨询按钮 - 来源:', buttonSource);
+            console.log('👆 用户点击咨询按钮 - 来源:', buttonSource, '第', clickCount + 1, '次');
             
-            if (button.disabled) {
-                console.log('⚠️ 按钮已禁用，忽略重复点击');
-                return;
-            }
-            
-            button.disabled = true;
-            const originalText = button.innerHTML;
-            button.innerHTML = '🚀 正在连接...';
-            
-            // 追踪咨询点击事件
+            // 立即追踪
             trackConsultationClick(buttonSource);
+            
+            // 短暂禁用按钮防止连续点击
+            const originalText = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '🚀 跳转中...';
             
             // 显示加载状态
             showStatus('正在连接招聘顾问...', 'success');
             
-            // 改进的设备检测
-            const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            try {
+                // 策略1: 尝试协议链接（移动端）
+                const protocolLink = document.createElement('a');
+                protocolLink.href = WHATSAPP_PROTOCOL_LINK;
+                protocolLink.style.display = 'none';
+                document.body.appendChild(protocolLink);
+                protocolLink.click();
+                document.body.removeChild(protocolLink);
+                
+                // 策略2: 同时打开网页版
+                setTimeout(() => {
+                    window.open(WHATSAPP_LINK, '_blank');
+                }, 100);
+                
+            } catch (error) {
+                console.log('❌ 跳转失败:', error);
+                // 策略3: 显示备用链接
+                showFallbackOption();
+            }
             
+            // 快速恢复按钮（0.5秒后）
             setTimeout(() => {
-                try {
-                    // 移动设备使用WhatsApp协议链接
-                    if (isMobile) {
-                        console.log('📱 移动设备 - 尝试使用协议链接');
-                        
-                        // 创建隐藏iframe来尝试协议链接
-                        const iframe = document.createElement('iframe');
-                        iframe.style.display = 'none';
-                        iframe.src = WHATSAPP_PROTOCOL_LINK;
-                        document.body.appendChild(iframe);
-                        
-                        // 设置超时回退
-                        setTimeout(() => {
-                            if (document.hasFocus()) {
-                                console.log('🔄 协议链接未生效，回退到网页版');
-                                window.open(WHATSAPP_LINK, '_blank');
-                            }
-                        }, 500);
-                        
-                        // 移除iframe
-                        setTimeout(() => document.body.removeChild(iframe), 2000);
-                    } else {
-                        // 桌面设备使用网页版链接
-                        console.log('💻 桌面设备 - 打开网页版');
-                        window.open(WHATSAPP_LINK, '_blank');
-                    }
-                    
-                    // 设置3秒后恢复按钮状态
-                    setTimeout(() => {
-                        button.disabled = false;
-                        button.innerHTML = originalText;
-                    }, 3000);
-                    
-                } catch (error) {
-                    console.log('❌ 跳转失败:', error);
-                    showFallbackOption();
-                    
-                    // 恢复按钮状态
-                    button.disabled = false;
-                    button.innerHTML = originalText;
-                }
-            }, 300);
+                button.disabled = false;
+                button.innerHTML = originalText;
+            }, 500);
         }
         
         // 页面加载完成
         window.addEventListener('load', function() {
-            console.log('📱 招聘页面加载完成');
+            console.log('📱 大量咨询优化页面加载完成');
+            pageStartTime = Date.now();
             
+            // 绑定所有咨询按钮
             document.querySelectorAll('.whatsapp-btn').forEach(button => {
                 button.addEventListener('click', contactWhatsApp);
             });
@@ -667,13 +775,22 @@
             document.getElementById('whatsappFallbackLink').href = WHATSAPP_LINK;
             document.getElementById('whatsappFallbackLink').textContent = WHATSAPP_LINK;
             
-            setTimeout(() => {
+            // 快速更新计数器
+            updateLiveCounter();
+            updateApplicantCount();
+            
+            // 每10秒发送一次ViewContent（增加页面互动数据）
+            setInterval(() => {
                 if (typeof fbq !== 'undefined') {
-                    console.log('✅ Facebook Pixel 已加载');
-                } else {
-                    console.error('❌ Facebook Pixel 加载失败');
+                    fbq('track', 'ViewContent', {
+                        content_name: '页面活跃用户',
+                        content_category: '持续互动',
+                        value: 2.00,
+                        currency: 'USD'
+                    });
+                    console.log('✅ 持续互动ViewContent事件已发送');
                 }
-            }, 1000);
+            }, 10000);
         });
     </script>
 </body>
